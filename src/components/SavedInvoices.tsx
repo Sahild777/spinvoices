@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -140,7 +139,7 @@ const SavedInvoices = () => {
                         onChange={e => setEditInvoice({ ...editInvoice, total_amount: parseFloat(e.target.value) })}
                       />
                     </TableCell>
-                    <TableCell>{new Date(invoice.created_at).toLocaleDateString()}</TableCell>
+                    <TableCell>{invoice.invoice_date ? new Date(invoice.invoice_date).toLocaleDateString() : (invoice.created_at ? new Date(invoice.created_at).toLocaleDateString() : '')}</TableCell>
                     <TableCell>
                       <Button size="sm" onClick={() => handleSaveEdit(invoice.id)}>Save</Button>
                       <Button size="sm" variant="outline" className="ml-2" onClick={handleCancelEdit}>Cancel</Button>
@@ -153,7 +152,7 @@ const SavedInvoices = () => {
                     <TableCell>{invoice.business_name}</TableCell>
                     <TableCell>{invoice.customer_name}</TableCell>
                     <TableCell>₹{invoice.total_amount.toFixed(2)}</TableCell>
-                    <TableCell>{new Date(invoice.created_at).toLocaleDateString()}</TableCell>
+                    <TableCell>{invoice.invoice_date ? new Date(invoice.invoice_date).toLocaleDateString() : (invoice.created_at ? new Date(invoice.created_at).toLocaleDateString() : '')}</TableCell>
                     <TableCell>
                       <div className="flex gap-2">
                         <Button 

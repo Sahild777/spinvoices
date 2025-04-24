@@ -1,4 +1,3 @@
-
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Invoice } from '@/types';
@@ -37,9 +36,11 @@ export const generatePDF = (invoice: Invoice) => {
   doc.setFont('helvetica', 'bold');
   doc.text(`Date:`, 120, 58);
   doc.setFont('helvetica', 'normal');
-  const createdDate = new Date(invoice.created_at);
-const formattedDate = `${createdDate.getDate().toString().padStart(2, '0')}/${(createdDate.getMonth()+1).toString().padStart(2, '0')}/${createdDate.getFullYear()}`;
-doc.text(formattedDate, 135, 58);
+  // Use invoice_date if available, fall back to created_at
+  const dateStr = invoice.invoice_date || invoice.created_at;
+  const displayDate = dateStr ? new Date(dateStr) : new Date();
+  const formattedDate = `${displayDate.getDate().toString().padStart(2, '0')}/${(displayDate.getMonth()+1).toString().padStart(2, '0')}/${displayDate.getFullYear()}`;
+  doc.text(formattedDate, 135, 58);
 
   // Modern Items Table with Sr. No and minimum 10 rows
   const tableHead = [['Sr. No', 'Description', 'Quantity', 'Rate', 'GST Rate', 'Total']];

@@ -1,4 +1,3 @@
-
 export interface Business {
   id: string;
   name: string;
@@ -25,6 +24,7 @@ export interface InvoiceItem {
 export interface Invoice {
   id: string;
   invoice_number: string;
+  invoice_date?: string;
   business_name: string;
   business_address: string;
   business_gst: string;

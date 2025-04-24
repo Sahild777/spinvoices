@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -40,15 +39,7 @@ const InvoiceForm = () => {
 
   useEffect(() => {
     fetchBusinessesAndCustomers();
-    generateDefaultInvoiceNumber();
   }, []);
-
-  const generateDefaultInvoiceNumber = () => {
-    const today = new Date();
-    const dateString = format(today, 'yyyyMMdd');
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    setInvoiceNumber(`INV-${dateString}-${randomNum}`);
-  };
 
   const fetchBusinessesAndCustomers = async () => {
     const [businessesResult, customersResult] = await Promise.all([
@@ -136,6 +127,7 @@ const InvoiceForm = () => {
           subtotal: subtotal,
           gst_amount: gstAmount,
           total_amount: totalAmount,
+          invoice_date: invoiceDate,
         })
         .select();
 
@@ -144,9 +136,6 @@ const InvoiceForm = () => {
       toast.success('Invoice saved successfully!', {
         description: `Invoice saved with total amount: ₹${totalAmount.toFixed(2)}`,
       });
-      
-      // Generate a new invoice number for the next invoice
-      generateDefaultInvoiceNumber();
     } catch (error) {
       console.error('Error saving invoice:', error);
       toast.error('Failed to save invoice', {
