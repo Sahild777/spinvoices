@@ -96,11 +96,11 @@ const SavedInvoices = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white dark:bg-gray-900 rounded-lg shadow-md text-gray-900 dark:text-gray-100 transition-colors">
       {invoices.length === 0 ? (
         <p className="text-center text-muted-foreground">No saved invoices</p>
       ) : (
-        <Table>
+        <Table className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <TableHeader>
             <TableRow>
               <TableHead>Invoice Number</TableHead>
